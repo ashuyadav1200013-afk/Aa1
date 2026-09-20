@@ -26,19 +26,22 @@ import { KindnessCertificateModal } from './components/KindnessCertificateModal'
 import { DeveloperModal } from './components/DeveloperModal';
 import { LightboxModal } from './components/LightboxModal';
 import { CommunityGuardians } from './components/CommunityGuardians';
+import { DonateModal } from './components/DonateModal';
+import { TrustedTrustsSection } from './components/TrustedTrustsSection';
 
 const BATCH_SIZE = 24;
 
 export default function App() {
-  // Load posts from localStorage if available, ensuring clean unique dataset is loaded
+  // Load posts from localStorage if available, ensuring clean Indian dataset is loaded
   const [posts, setPosts] = useState<PostItem[]>(() => {
     try {
       const saved = localStorage.getItem('greenpaws_posts');
       if (saved) {
         const parsed: PostItem[] = JSON.parse(saved);
-        // If saved data is from the old repetitive loop (which had > 200 items with duplicate photos),
-        // flush it and load the verified 100% unique photos while preserving genuine user posts
-        if (parsed.length > 200) {
+        // If saved data is from older runs without the new authentic Indian posts,
+        // refresh with MOCK_POSTS while preserving any genuine user posts
+        const hasIndianPosts = parsed.some((p) => p.id.startsWith('post-ind-'));
+        if (!hasIndianPosts || parsed.length > 150) {
           const userAdded = parsed.filter(
             (p) => p.id.startsWith('post-') && Number(p.id.replace('post-', '')) > 1000000000000
           );
@@ -77,12 +80,19 @@ export default function App() {
   // Modals
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isDeveloperModalOpen, setIsDeveloperModalOpen] = useState(false);
+  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
+  const [selectedTrustId, setSelectedTrustId] = useState<string | null>(null);
   const [certificatePost, setCertificatePost] = useState<PostItem | null>(null);
   const [lightboxData, setLightboxData] = useState<{ isOpen: boolean; imageUrl: string; title: string }>({
     isOpen: false,
     imageUrl: '',
     title: '',
   });
+
+  const handleOpenDonateModal = (trustId?: string) => {
+    setSelectedTrustId(trustId || null);
+    setIsDonateModalOpen(true);
+  };
 
   // Save to localStorage whenever posts change
   useEffect(() => {
@@ -237,24 +247,29 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-100/70 text-slate-900 flex flex-col font-sans selection:bg-emerald-200 selection:text-emerald-950">
-      {/* Navigation Bar with prominent 'Developed by Ashu Yadav' */}
+      {/* Navigation Bar with prominent 'Developed by Ashu Yadav' & Donate */}
       <Navbar
         onOpenCreateModal={() => setIsCreateModalOpen(true)}
         onOpenDeveloperModal={() => setIsDeveloperModalOpen(true)}
+        onOpenDonateModal={() => handleOpenDonateModal()}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         totalActsCount={stats.totalActs}
       />
 
-      {/* Hero Banner with Stats & Vision */}
+      {/* Hero Banner with Stats, Vision & Donate CTA */}
       <HeroBanner
         onOpenCreateModal={() => setIsCreateModalOpen(true)}
         onOpenDeveloperModal={() => setIsDeveloperModalOpen(true)}
+        onOpenDonateModal={() => handleOpenDonateModal()}
         stats={stats}
       />
 
       {/* Main Feed Container */}
       <main id="community-feed" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Featured Verified Animal & Nature Trusts Section */}
+        <TrustedTrustsSection onOpenDonateModal={handleOpenDonateModal} />
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Main Feed Column (8 cols on large screens) */}
@@ -371,6 +386,7 @@ export default function App() {
             <CommunityGuardians
               onOpenDeveloperModal={() => setIsDeveloperModalOpen(true)}
               onOpenCreateModal={() => setIsCreateModalOpen(true)}
+              onOpenDonateModal={() => handleOpenDonateModal()}
             />
 
             {/* Quick Action Card */}
@@ -437,7 +453,13 @@ export default function App() {
       <DeveloperModal
         isOpen={isDeveloperModalOpen}
         onClose={() => setIsDeveloperModalOpen(false)}
-        currentPosts={posts}
+        onOpenDonateModal={() => handleOpenDonateModal()}
+      />
+
+      <DonateModal
+        isOpen={isDonateModalOpen}
+        onClose={() => setIsDonateModalOpen(false)}
+        selectedTrustId={selectedTrustId || undefined}
       />
 
       <KindnessCertificateModal

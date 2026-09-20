@@ -1,14 +1,16 @@
 import React from 'react';
-import { Sparkles, ShieldCheck, Users, MapPin } from 'lucide-react';
+import { Sparkles, ShieldCheck, Users, MapPin, HeartHandshake, Heart, ExternalLink } from 'lucide-react';
 
 interface CommunityGuardiansProps {
   onOpenDeveloperModal: () => void;
   onOpenCreateModal: () => void;
+  onOpenDonateModal?: () => void;
 }
 
 export const CommunityGuardians: React.FC<CommunityGuardiansProps> = ({
   onOpenDeveloperModal,
   onOpenCreateModal,
+  onOpenDonateModal,
 }) => {
   const topGuardians = [
     {
@@ -144,6 +146,26 @@ export const CommunityGuardians: React.FC<CommunityGuardiansProps> = ({
           ))}
         </div>
       </div>
+
+      {/* Direct Animal & Tree Trust Donation Card */}
+      {onOpenDonateModal && (
+        <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200/80 rounded-2xl p-4 shadow-xs space-y-2.5">
+          <div className="flex items-center gap-1.5 text-amber-900 font-bold text-xs">
+            <HeartHandshake className="w-4 h-4 text-amber-700" />
+            <span>Support Real Animal Trusts</span>
+          </div>
+          <p className="text-[11px] text-amber-900/80 leading-relaxed">
+            Animal Aid Unlimited, Friendicoes aur SankalpTaru jaise verified trusts ko direct sahayata bhejein.
+          </p>
+          <button
+            onClick={onOpenDonateModal}
+            className="w-full py-2 px-3 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold text-xs rounded-xl shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+          >
+            <Heart className="w-3.5 h-3.5 fill-white" />
+            <span>Donate Directly to Trusts</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

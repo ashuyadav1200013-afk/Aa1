@@ -5,12 +5,14 @@ import { ImpactStats } from '../types';
 interface HeroBannerProps {
   onOpenCreateModal: () => void;
   onOpenDeveloperModal: () => void;
+  onOpenDonateModal: () => void;
   stats: ImpactStats;
 }
 
 export const HeroBanner: React.FC<HeroBannerProps> = ({
   onOpenCreateModal,
   onOpenDeveloperModal,
+  onOpenDonateModal,
   stats,
 }) => {
   return (
@@ -25,7 +27,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           <Sparkles className="w-4 h-4 text-amber-300 animate-spin-slow" />
           <span>Developed by <strong className="text-white font-bold tracking-wide">Ashu Yadav</strong></span>
           <span className="w-1 h-1 rounded-full bg-emerald-400" />
-          <span className="text-emerald-300">Community Kindness Initiative</span>
+          <span className="text-emerald-300">Pashu & Prakriti Sewa</span>
           <button 
             onClick={onOpenDeveloperModal}
             className="ml-1 px-2 py-0.5 rounded bg-emerald-600/60 hover:bg-emerald-600 text-white text-[11px] font-semibold transition-colors cursor-pointer"
@@ -44,26 +46,34 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
 
         {/* Description in Hindi & English */}
         <p className="max-w-3xl mx-auto text-sm sm:text-base text-emerald-100/80 leading-relaxed">
-          Logon ne ped lagaye, sukhte paudhon ko paani diya, aur be-sahara street dogs ya ghayal janwaron ka ilaaj karke unhe bachaya.
-          <strong> Aap bhi apni photo click karke turant post karein aur 1,000+ se jyada nek logon ka hissa banein!</strong>
+          Bharat ke kone-kone se logon ne street dogs ko khana khilaya, ghayal pashuon ka ilaaj kiya, aur Neem, Peepal, Banyan ke paudhe lagaye.
+          <strong> Aap bhi apni photo click karke turant post karein ya verified trusts ko sahayata bhejein!</strong>
         </p>
 
         {/* Actions */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <button
             onClick={onOpenCreateModal}
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm sm:text-base rounded-2xl shadow-xl shadow-emerald-500/25 hover:shadow-emerald-400/30 transition-all transform hover:-translate-y-0.5 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm sm:text-base rounded-2xl shadow-xl shadow-emerald-500/25 hover:shadow-emerald-400/30 transition-all transform hover:-translate-y-0.5 cursor-pointer"
           >
             <Camera className="w-5 h-5" />
-            <span>Click Photo & Post Your Deed</span>
+            <span>Click Photo & Post Deed</span>
+          </button>
+
+          <button
+            onClick={onOpenDonateModal}
+            className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-sm sm:text-base rounded-2xl shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 cursor-pointer"
+          >
+            <Heart className="w-5 h-5 fill-white" />
+            <span>Donate to Animal Trusts</span>
           </button>
 
           <a
             href="#community-feed"
-            className="inline-flex items-center gap-2 px-5 py-3.5 bg-white/10 hover:bg-white/15 text-white font-semibold text-sm sm:text-base rounded-2xl border border-white/15 backdrop-blur-md transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 bg-white/10 hover:bg-white/15 text-white font-semibold text-sm sm:text-base rounded-2xl border border-white/15 backdrop-blur-md transition-all cursor-pointer"
           >
             <Sprout className="w-5 h-5 text-emerald-400" />
-            <span>Explore 1,200+ Real Stories</span>
+            <span>Explore Real Posts</span>
           </a>
         </div>
 

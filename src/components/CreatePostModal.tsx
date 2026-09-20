@@ -411,18 +411,18 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
                     key={idx}
                     type="button"
                     onClick={() => {
-                      setImageUrl(preset.url);
+                      setImageUrl(preset.imageUrl);
                       setCategory(preset.category);
-                      setTitle(preset.title);
+                      setTitle(preset.label);
                     }}
                     className={`p-1.5 rounded-xl border text-left flex flex-col gap-1 transition-all ${
-                      imageUrl === preset.url
+                      imageUrl === preset.imageUrl
                         ? 'border-emerald-600 bg-emerald-50 ring-2 ring-emerald-500/20'
                         : 'border-slate-200 hover:border-slate-300 bg-white'
                     }`}
                   >
                     <img
-                      src={preset.url}
+                      src={preset.imageUrl}
                       alt={preset.label}
                       className="w-full h-16 object-cover rounded-lg"
                     />

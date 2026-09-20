@@ -44,3 +44,22 @@ export interface ImpactStats {
   waterGivenLiters: number;
   volunteersCount: number;
 }
+
+export interface TrustedTrust {
+  id: string;
+  name: string;
+  hindiName?: string;
+  tagline: string;
+  category: 'animal-rescue' | 'street-dogs' | 'tree-plantation' | 'cow-seva' | 'wildlife';
+  location: string;
+  established: string;
+  impactHighlight: string;
+  donateUrl: string;
+  officialWebsite: string;
+  upiId?: string;
+  taxExemption?: string;
+  imageUrl: string;
+  description: string;
+  verified: boolean;
+}
+
