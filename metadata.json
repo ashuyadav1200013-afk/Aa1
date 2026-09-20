@@ -1,0 +1,6 @@
+{
+  "name": "GreenPaws - Nature & Animal Kindness Community",
+  "description": "A global community platform developed by Ashu Yadav where people post photos of planting trees, watering plants, rescuing injured animals, and feeding pets.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
